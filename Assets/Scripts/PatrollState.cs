@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class PatrollState : StateMachineBehaviour
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     float timer;
     List<Transform> wayPoints = new List<Transform>();
+    Transform destination;
     NavMeshAgent agent;
     Transform player;
     float chaseRange = 8;
@@ -30,18 +32,22 @@ public class PatrollState : StateMachineBehaviour
     {
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
-            agent.SetDestination(wayPoints[Random.Range(0, wayPoints.Count)].position);
+            destination = wayPoints[Random.Range(0, wayPoints.Count)];
+
+            agent.SetDestination(destination.position);
+            
+            animator.transform.LookAt(destination);
         }
 
         timer += Time.deltaTime;
         if (timer > 10)
         {
-            animator.SetBool("IsPatrolling", false);
+            animator.SetBool("isPatrolling", false);
         }
 
         float distance = Vector3.Distance(player.position, animator.transform.position);
         if (distance < chaseRange)
-            animator.SetBool("IsChasing", true);
+            animator.SetBool("isChasing", true);
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

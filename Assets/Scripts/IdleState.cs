@@ -21,11 +21,11 @@ public class IdleState : StateMachineBehaviour
         timer += Time.deltaTime;
         if(timer > 5)
         {
-            animator.SetBool("IsPatrolling", true);
+            animator.SetBool("isPatrolling", true);
         }
         float distance = Vector3.Distance(player.position, animator.transform.position);
         if (distance < chaseRange)
-            animator.SetBool("IsChasing", true);
+            animator.SetBool("isChasing", true);
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

@@ -16,8 +16,8 @@ public class AttackState : StateMachineBehaviour
     {   
         animator.transform.LookAt(player);
         float distance = Vector3.Distance(player.position, animator.transform.position);
-        if (distance > 3.5f)
-            animator.SetBool("IsAttacking", false);
+        if (distance > 2.5f)
+            animator.SetBool("isAttacking", false);
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
